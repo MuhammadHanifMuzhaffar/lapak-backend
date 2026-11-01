@@ -18,9 +18,14 @@ final class PembatalanOtomatis
         private readonly PenjagaStok $stok,
     ) {}
 
-    public function batalkan(Checkout $checkout): bool
+public function batalkan(int|Checkout $checkout): bool
     {
-        return $this->gembok->kunci($checkout, function (Checkout $checkout): bool {
+        $model = $checkout instanceof Checkout ? $checkout : Checkout::find($checkout);
+        if ($model === null) {
+            return false;
+        }
+
+        return $this->gembok->kunci($model, function (Checkout $checkout): bool {
             $pembayaran = Pembayaran::query()
                 ->where('checkout_id', $checkout->id)
                 ->lockForUpdate()
