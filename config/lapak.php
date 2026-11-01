@@ -37,5 +37,9 @@ return [
     ],,
     'transaksi' => [
         'ambang_segar_rupiah' => 1_000_000,
+    ],,
+    'gateway' => [
+        'rahasia' => env('GATEWAY_RAHASIA', 'kunci-rahasia-gateway-2026'),
+        'toleransi_detik' => 300,
     ],
 ];
