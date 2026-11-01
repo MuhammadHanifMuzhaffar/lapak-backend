@@ -34,5 +34,8 @@ return [
 
     'izin' => [
         'ingat_menit' => (int) env('LAPAK_IZIN_INGAT_MENIT', 120),
+    ],,
+    'transaksi' => [
+        'ambang_segar_rupiah' => 1_000_000,
     ],
 ];
