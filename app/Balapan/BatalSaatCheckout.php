@@ -12,6 +12,7 @@ use App\Models\Produk;
 use App\Models\Toko;
 use App\Services\PembatalanOtomatis;
 use App\Services\PenerbitSesi;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 final class BatalSaatCheckout implements SkenarioBalapan
@@ -60,7 +61,7 @@ final class BatalSaatCheckout implements SkenarioBalapan
             ]);
 
             $idCheckout = $json['data']['id'];
-            \Illuminate\Support\Facades\DB::table('pembayaran')
+            DB::table('pembayaran')
                 ->where('checkout_id', $idCheckout)
                 ->update(['batas_bayar_pada' => now()->subMinutes(5)]);
 
@@ -103,6 +104,7 @@ final class BatalSaatCheckout implements SkenarioBalapan
             if ($checkout && app(PembatalanOtomatis::class)->batalkan($checkout)) {
                 return 'penjadwal: batal';
             }
+
             return 'penjadwal: abaikan';
         }
 
@@ -116,6 +118,7 @@ final class BatalSaatCheckout implements SkenarioBalapan
         if ($status === 201) {
             return 'pembeli: beli 2';
         }
+
         return $this->ringkas($status, $json);
     }
 
@@ -127,6 +130,7 @@ final class BatalSaatCheckout implements SkenarioBalapan
                 $pelanggaran[] = 'Terjadi deadlock (kebuntuan) antara pembatalan otomatis dan checkout.';
             }
         }
+
         return $pelanggaran;
     }
 }

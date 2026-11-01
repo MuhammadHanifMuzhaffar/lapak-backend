@@ -34,10 +34,12 @@ return [
 
     'izin' => [
         'ingat_menit' => (int) env('LAPAK_IZIN_INGAT_MENIT', 120),
-    ],,
+    ],
     'transaksi' => [
-        'ambang_segar_rupiah' => 1_000_000,
-    ],,
+        'batas_segar_rupiah' => (int) env('LAPAK_BATAS_SEGAR_RUPIAH', 2_000_000),
+        'laju_per_menit' => 10,
+        'alamat_maksimum' => 5,
+    ],
     'gateway' => [
         'rahasia' => env('GATEWAY_RAHASIA', 'kunci-rahasia-gateway-2026'),
         'toleransi_detik' => 300,

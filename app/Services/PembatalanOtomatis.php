@@ -9,7 +9,6 @@ use App\Domain\Pesanan\StatusPesanan;
 use App\Models\Checkout;
 use App\Models\Pembayaran;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 
 final class PembatalanOtomatis
 {
