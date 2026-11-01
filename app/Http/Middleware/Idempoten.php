@@ -50,9 +50,10 @@ final class Idempoten
                 'rute' => $rute,
                 'sidik' => $sidik,
             ])->save();
-        } catch (UniqueConstraintViolationException) {
+        } catch (UniqueConstraintViolationException|\Illuminate\Database\QueryException $e) {
             // Kunci ini sudah tercatat. Bila pencatatnya masih berjalan, INSERT di atas MENUNGGU
             // sampai ia selesai: indeks unik membuat permintaan kembar antre, bukan berlomba.
+            // Pada MySQL bila terjadi deadlock 1213 pada gap lock indeks unik, tangani sebagai ulangi.
             DB::rollBack();
 
             return $this->ulangi($idPengguna, $kunci, $sidik);
