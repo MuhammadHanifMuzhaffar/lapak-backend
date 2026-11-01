@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('checkout', function (Blueprint $tabel) {
             $tabel->id();
             // Yang disebut klien dan gerbang pembayaran. Nomor urut internal tidak pernah keluar.
-            $tabel->char('kode', 26)->unique();
+            $tabel->string('kode', 32)->unique();
             $tabel->foreignId('pembeli_id')->constrained('pengguna')->restrictOnDelete();
             $tabel->unsignedBigInteger('total_rupiah');
             // Sesi yang membuat checkout ini. Sengaja bukan foreign key: baris sesi dipangkas

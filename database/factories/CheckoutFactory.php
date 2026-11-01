@@ -20,7 +20,7 @@ final class CheckoutFactory extends Factory
     {
         return [
             'pembeli_id' => Pengguna::factory()->pembeli(),
-            'kode' => 'CHK-'.Str::upper((string) Str::ulid()),
+            'kode' => (string) Str::ulid(),
             'pengenal_sesi' => (string) Str::ulid(),
             'total_rupiah' => 197_000,
         ];
