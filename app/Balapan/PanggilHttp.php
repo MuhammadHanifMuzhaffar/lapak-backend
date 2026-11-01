@@ -47,6 +47,11 @@ trait PanggilHttp
     protected function ringkas(int $status, array $json): string
     {
         $kode = $json['galat']['kode'] ?? null;
+        $rincian = $json['galat']['rincian']['pesan_asli'] ?? ($json['galat']['pesan'] ?? null);
+
+        if ($status >= 400 && $rincian !== null) {
+            return "{$status} {$kode} [".\Illuminate\Support\Str::limit($rincian, 50)."]";
+        }
 
         return $kode === null ? (string) $status : "{$status} {$kode}";
     }

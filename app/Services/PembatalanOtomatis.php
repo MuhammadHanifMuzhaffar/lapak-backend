@@ -18,7 +18,7 @@ final class PembatalanOtomatis
         private readonly PenjagaStok $stok,
     ) {}
 
-public function batalkan(int|Checkout $checkout): bool
+    public function batalkan(int|Checkout $checkout): bool
     {
         $model = $checkout instanceof Checkout ? $checkout : Checkout::find($checkout);
         if ($model === null) {

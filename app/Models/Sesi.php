@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Services\PemeriksaSesi;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -64,9 +65,10 @@ final class Sesi extends Model
         }
 
         if ($token = $request->bearerToken()) {
-            $pemeriksa = app(\App\Services\PemeriksaSesi::class);
+            $pemeriksa = app(PemeriksaSesi::class);
             if ($sesi = $pemeriksa->periksa($token)) {
                 $request->attributes->set('sesi', $sesi);
+
                 return $sesi;
             }
         }
