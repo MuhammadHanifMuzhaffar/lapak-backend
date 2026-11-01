@@ -20,12 +20,9 @@ final class PembatalanOtomatis
 
     public function batalkan(int|Checkout $checkout): bool
     {
-        $model = $checkout instanceof Checkout ? $checkout : Checkout::find($checkout);
-        if ($model === null) {
-            return false;
-        }
+        $id = $checkout instanceof Checkout ? $checkout->id : $checkout;
 
-        return $this->gembok->kunci($model, function (Checkout $checkout): bool {
+        return $this->gembok->dalam($id, function (Checkout $checkout): bool {
             $pembayaran = Pembayaran::query()
                 ->where('checkout_id', $checkout->id)
                 ->lockForUpdate()

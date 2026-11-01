@@ -7,6 +7,7 @@ namespace App\Http\Middleware;
 use App\Exceptions\GalatIdempotensi;
 use App\Models\KunciIdempotensi;
 use Closure;
+use Illuminate\Database\QueryException;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -50,7 +51,7 @@ final class Idempoten
                 'rute' => $rute,
                 'sidik' => $sidik,
             ])->save();
-        } catch (UniqueConstraintViolationException|\Illuminate\Database\QueryException $e) {
+        } catch (QueryException|UniqueConstraintViolationException) {
             // Kunci ini sudah tercatat. Bila pencatatnya masih berjalan, INSERT di atas MENUNGGU
             // sampai ia selesai: indeks unik membuat permintaan kembar antre, bukan berlomba.
             // Pada MySQL bila terjadi deadlock 1213 pada gap lock indeks unik, tangani sebagai ulangi.
